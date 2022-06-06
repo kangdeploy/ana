@@ -42,11 +42,11 @@ exports.allmenu = (sender, prefix, pushname, isOwner, isPremium, balance, limit,
   ≻ ${prefix}runtime
   ≻ ${prefix}cekprem
   ≻ ${prefix}listprem
+  ≻ ${prefix}ana <text>
 
   *( ✏️ )  Converter/Tools*
   ≻ ${prefix}sticker
-  ≻ ${prefix}toimg
-  ≻ ${prefix}tovid
+  ≻ ${prefix}attp <text>
 
   *( ⌛ )  Downloader*
   ≻ ${prefix}play
@@ -54,6 +54,7 @@ exports.allmenu = (sender, prefix, pushname, isOwner, isPremium, balance, limit,
   ≻ ${prefix}ytmp4
   ≻ ${prefix}ytmp3
   ≻ ${prefix}getvideo
+  ≻ ${prefix}mediafire
   ≻ ${prefix}getmusic
   ≻ ${prefix}instagram
   ≻ ${prefix}facebook
@@ -66,6 +67,7 @@ exports.allmenu = (sender, prefix, pushname, isOwner, isPremium, balance, limit,
   *( 🔎 )  Search Menu*
   ≻ ${prefix}lirik
   ≻ ${prefix}grupwa
+  ≻ ${prefix}pinterest
   ≻ ${prefix}ytsearch
   
   *( 🎮 )  Game Menu*
@@ -101,5 +103,5 @@ exports.allmenu = (sender, prefix, pushname, isOwner, isPremium, balance, limit,
   ≻ ${prefix}addprem
   ≻ ${prefix}delprem
 
-`+'     \`\`\`Powered by Nodejs\`\`\`'
+`+'     \`\`\`Powered by Fardev\`\`\`'
 }
