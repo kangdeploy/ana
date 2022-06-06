@@ -162,7 +162,7 @@ module.exports = async(conn, msg, m, setting, store, welcome) => {
            var url = await yts(query)
            url = url.videos[0].url
            hxz.youtube(url).then(async(data) => {
-             var button = [{ buttonId: `!ytmp3 ${url}`, buttonText: { displayText: `🎵 Audio (${data.size_mp3})` }, type: 1 }, { buttonId: `!ytmp4 ${url}`, buttonText: { displayText: `🎥 Video (${data.size})` }, type: 1 }]
+             var button = [{ buttonId: `/ytmp3 ${url}`, buttonText: { displayText: `🎵 Audio (${data.size_mp3})` }, type: 1 }, { buttonId: `/ytmp4 ${url}`, buttonText: { displayText: `🎥 Video (${data.size})` }, type: 1 }]
              conn.sendMessage(from, { caption: `*Title :* ${data.title}\n*Quality :* ${data.quality}\n*Url :* https://youtu.be/${data.id}`, location: { jpegThumbnail: await getBuffer(data.thumb) }, buttons: button, footer: 'Pilih Salah Satu Button Dibawah⬇️', mentions: [sender] })
            }).catch((e) => {
              conn.sendMessage(from, { text: mess.error.api }, { quoted: msg })
@@ -437,7 +437,7 @@ module.exports = async(conn, msg, m, setting, store, welcome) => {
 			    }
 			    break
 	        // Downloader Menu
-			case prefix+'tiktok':
+			/*case prefix+'tiktok':
 			    if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
 			    if (args.length < 2) return reply(`Kirim perintah ${command} link`)
 			    if (!isUrl(args[1])) return reply(mess.error.Iv)
@@ -447,8 +447,8 @@ module.exports = async(conn, msg, m, setting, store, welcome) => {
 			      conn.sendMessage(from, {
 				   video: { url: data.medias[0].url },
 				   caption: `${data.title}\n\nKamu bisa mengubahnya menjadi Vidio Tanpa Watermark atau Audio, pencet tombol dibawah untuk mengubahnya!`,
-				   buttons: [{buttonId: `${prefix}tiktoknowm ${args[1]}`, buttonText: { displayText: "Without Watermark" }, type: 1 },
-					{buttonId: `${prefix}tiktokaudio ${args[1]}`, buttonText: { displayText: "Audio" }, type: 1 }],
+				   buttons: [{buttonId: `/tiktoknowm ${args[1]}`, buttonText: { displayText: "Without Watermark" }, type: 1 },
+					{buttonId: `/tiktokaudio ${args[1]}`, buttonText: { displayText: "Audio" }, type: 1 }],
 				   footer: "Create by ana bot"
 			      }, { quoted: msg })
 				  limitAdd(sender, limit)
@@ -475,7 +475,36 @@ module.exports = async(conn, msg, m, setting, store, welcome) => {
 			      conn.sendMessage(from, { audio: { url: data.nowm }, mimetype: 'audio/mp4' }, { quoted: msg })
 			       limitAdd(sender, limit)
 				}).catch(() => reply(mess.error.api))
-				break
+				break*/
+				case prefix+'tiktoknowm':
+			  case prefix+'tiktok':
+				  case prefix+'tt':
+			    if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+			    if (args.length < 2) return reply(`Kirim perintah ${command} link`)
+			    if (!isUrl(args[1])) return reply(mess.error.Iv)
+			    const link = `${q}`
+				hxz.ttdownloader(link).then( data => {
+					var tidtod = [
+						{ urlButton: { displayText: `Source`, url : `${q}` } },
+			{ quickReplyButton: { displayText: `Audio`, id: `${prefix}tiktokaudio ${q}` } },
+				]
+				reply(mess.wait)
+				conn.sendMessage(from, { caption: `Succes Download Video Tiktok, Thanks For Using FAR-BOT!`, video: {url: data.nowm}, templateButtons: tidtod, footer: 'Farbot', mentions: [sender]} )
+			}).catch(() => reply(mess.error.api))
+			limitAdd(sender, limit)
+			    break
+			case prefix+'tiktokaudio':
+				case prefix+'ttaudio':
+			    if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+			    if (args.length < 2) return reply(`Kirim perintah ${command} link`)
+			    if (!isUrl(args[1])) return reply(mess.error.Iv)
+			    if (!args[1].includes('tiktok')) return reply(mess.error.Iv)
+			    reply(mess.wait)
+			    hxz.ttdownloader(args[1]).then( data => {
+			      conn.sendMessage(from, { audio: { url: data.nowm }, mimetype: 'audio/mp4' }, { quoted: msg })
+			       limitAdd(sender, limit)
+				}).catch(() => reply(mess.error.api))
+		        break
 				case prefix+'pinterest':
 			    if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
 				if (args.length < 2) return reply(`Kirim perintah ${command} query atau ${command} query --jumlah\nContoh :\n${command} cecan atau ${command} cecan --10`)
@@ -581,6 +610,7 @@ module.exports = async(conn, msg, m, setting, store, welcome) => {
 				}).catch(() => reply(mess.error.api))
 			    break
 			case prefix+'igdl': case prefix+'instagram': case prefix+'ig':
+			if (!isPremium)return reply("Khusus premium kak")
 			    if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
 				if (args.length < 2) return reply(`Kirim perintah ${command} link`)
 			    if (!isUrl(args[1])) return reply(mess.error.Iv)
@@ -600,6 +630,7 @@ module.exports = async(conn, msg, m, setting, store, welcome) => {
 			    }).catch(() => reply(mess.error.api))
 			    break
 			case prefix+'facebook': case prefix+'fbdl':
+			if (!isPremium)return reply("Khusus premium kak")
 			    if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
 			    if (args.length < 2) return reply(`Kirim perintah ${command} link`)
 			    if (!isUrl(args[1])) return reply(mess.error.Iv)

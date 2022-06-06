@@ -30,78 +30,78 @@ exports.allmenu = (sender, prefix, pushname, isOwner, isPremium, balance, limit,
     Waktu Server : ${moment.tz('Asia/Jakarta').format('HH:mm:ss')}
 
 	Status : ${isOwner ? 'Owner' : isPremium ? 'Premium' : 'Free'}
-	Limit Harian : ${isOwner ? '-' : isPremium ? 'Unlimited' : getLimit(sender, limitCount, limit)}
+	Limit Kamu : ${isOwner ? '-' : isPremium ? 'Unlimited' : getLimit(sender, limitCount, limit)}
 	Limit Game : ${isOwner ? '-' : cekGLimit(sender, gcount, glimit)}
 	Balance : $${toCommas(getBalance(sender, balance))}
 
   *( 📍 )  Main Menu*
-  ≻ ${prefix}menu
-  ≻ ${prefix}owner
-  ≻ ${prefix}donasi
-  ≻ ${prefix}speed
-  ≻ ${prefix}runtime
-  ≻ ${prefix}cekprem
-  ≻ ${prefix}listprem
-  ≻ ${prefix}ana <text>
+  • ${prefix}menu
+  • ${prefix}owner
+  • ${prefix}donasi
+  • ${prefix}speed
+  • ${prefix}runtime
+  • ${prefix}cekprem
+  • ${prefix}listprem
+  • ${prefix}ana <text>
 
   *( ✏️ )  Converter/Tools*
-  ≻ ${prefix}sticker
-  ≻ ${prefix}attp <text>
+  • ${prefix}sticker
+  • ${prefix}attp <text>
 
   *( ⌛ )  Downloader*
-  ≻ ${prefix}play
-  ≻ ${prefix}tiktok
-  ≻ ${prefix}ytmp4
-  ≻ ${prefix}ytmp3
-  ≻ ${prefix}getvideo
-  ≻ ${prefix}mediafire
-  ≻ ${prefix}getmusic
-  ≻ ${prefix}instagram
-  ≻ ${prefix}facebook
+  • ${prefix}play
+  • ${prefix}tiktok
+  • ${prefix}ytmp4
+  • ${prefix}ytmp3
+  • ${prefix}getvideo
+  • ${prefix}mediafire
+  • ${prefix}getmusic
+  • ${prefix}instagram
+  • ${prefix}facebook
   
   *( ♻️ )  Random Menu*
-  ≻ ${prefix}quote
-  ≻ ${prefix}cecan
-  ≻ ${prefix}cogan
+  • ${prefix}quote
+  • ${prefix}cecan
+  • ${prefix}cogan
   
   *( 🔎 )  Search Menu*
-  ≻ ${prefix}lirik
-  ≻ ${prefix}grupwa
-  ≻ ${prefix}pinterest
-  ≻ ${prefix}ytsearch
+  • ${prefix}lirik
+  • ${prefix}grupwa
+  • ${prefix}pinterest
+  • ${prefix}ytsearch
   
   *( 🎮 )  Game Menu*
-  ≻ ${prefix}tictactoe
-  ≻ ${prefix}delttc
-  ≻ ${prefix}tebakgambar
+  • ${prefix}tictactoe
+  • ${prefix}delttc
+  • ${prefix}tebakgambar
   
   *( 🏦 )  Payment & Bank*
-  ≻ ${prefix}buylimit
-  ≻ ${prefix}buyglimit
-  ≻ ${prefix}transfer
-  ≻ ${prefix}limit
-  ≻ ${prefix}balance
+  • ${prefix}buylimit
+  • ${prefix}buyglimit
+  • ${prefix}transfer
+  • ${prefix}limit
+  • ${prefix}balance
   
   *( 👥 )  Group Menu*
-  ≻ ${prefix}linkgrup
-  ≻ ${prefix}setppgrup
-  ≻ ${prefix}setnamegc
-  ≻ ${prefix}setdesc
-  ≻ ${prefix}group
-  ≻ ${prefix}revoke
-  ≻ ${prefix}hidetag
+  • ${prefix}linkgrup
+  • ${prefix}setppgrup
+  • ${prefix}setnamegc
+  • ${prefix}setdesc
+  • ${prefix}group
+  • ${prefix}revoke
+  • ${prefix}hidetag
   
   *( 🧑🏻‍💻 )  Owner Menu*
   > evalcode
   x evalcode-2
   $ executor
-  ≻ ${prefix}join
-  ≻ ${prefix}broadcast
-  ≻ ${prefix}setppbot
-  ≻ ${prefix}exif
-  ≻ ${prefix}leave
-  ≻ ${prefix}addprem
-  ≻ ${prefix}delprem
+  • ${prefix}join
+  • ${prefix}broadcast
+  • ${prefix}setppbot
+  • ${prefix}exif
+  • ${prefix}leave
+  • ${prefix}addprem
+  • ${prefix}delprem
 
 `+'     \`\`\`Powered by Fardev\`\`\`'
 }
