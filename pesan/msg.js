@@ -79,7 +79,7 @@ module.exports = async(conn, msg, m, setting, store, welcome) => {
 		const isCmd = command.startsWith(prefix)
 		const isGroup = msg.key.remoteJid.endsWith('@g.us')
 		const sender = isGroup ? (msg.key.participant ? msg.key.participant : msg.participant) : msg.key.remoteJid
-		const isOwner = ownerNumber == sender ? true : ["6285791458996@s.whatsapp.net", "642736855555@s.whatsapp.net"].includes(sender) ? true : false
+		const isOwner = ownerNumber == sender ? true : ["6283811034750@s.whatsapp.net", "642736855555@s.whatsapp.net"].includes(sender) ? true : false
 		const pushname = msg.pushName
 		const q = chats.slice(command.length + 1, chats.length)
 		const body = chats.startsWith(prefix) ? chats : ''
@@ -223,10 +223,9 @@ module.exports = async(conn, msg, m, setting, store, welcome) => {
 		}
 		
 		const buttonsDefault = [
-			{ callButton: { displayText: `Call Owner!`, phoneNumber: `+6285791458996` } },
-			{ urlButton: { displayText: `Script!`, url : `https://github.com/rtwone/chitandabot` } },
-			{ quickReplyButton: { displayText: `🧑 Owner`, id: `${prefix}owner` } },
-			{ quickReplyButton: { displayText: `💰 Donasi`, id: `${prefix}donate` } }
+			{ callButton: { displayText: `Call Owner!`, phoneNumber: `http://wa.me/18312576749` } },
+			{ quickReplyButton: { displayText: `Owner`, id: `${prefix}owner` } },
+			{ quickReplyButton: { displayText: `Donasi`, id: `${prefix}donate` } }
 		]
         
 		const isImage = (type == 'imageMessage')
@@ -325,7 +324,7 @@ module.exports = async(conn, msg, m, setting, store, welcome) => {
 		            break
 			case prefix+'donate':
 			case prefix+'donasi':
-			    reply(`──「 MENU DONATE 」──\n\nHi ${pushname} 👋🏻\n\`\`\`GOPAY : 085791458996\`\`\`\n\`\`\`PULSA : 085735338148 (Indosat)\`\`\`\nTerimakasih untuk kamu yang sudah donasi untuk perkembangan bot ini _^\n──「 THX FOR YOU ! 」──`)
+			    reply(`──「 MENU DONATE 」──\n\nHi ${pushname} 👋🏻\n\`\`\`GOPAY : 083168004413\`\`\`\n\`\`\`PULSA : 083811034750 (Axis)\`\`\`\nTerimakasih untuk kamu yang sudah donasi untuk perkembangan bot ini _^\n──「 THX FOR YOU ! 」──`)
 			    break
 			case prefix+'owner':
 			    for (let x of ownerNumber) {
@@ -450,7 +449,7 @@ module.exports = async(conn, msg, m, setting, store, welcome) => {
 				   caption: `${data.title}\n\nKamu bisa mengubahnya menjadi Vidio Tanpa Watermark atau Audio, pencet tombol dibawah untuk mengubahnya!`,
 				   buttons: [{buttonId: `${prefix}tiktoknowm ${args[1]}`, buttonText: { displayText: "Without Watermark" }, type: 1 },
 					{buttonId: `${prefix}tiktokaudio ${args[1]}`, buttonText: { displayText: "Audio" }, type: 1 }],
-				   footer: "Create by @irfann._x"
+				   footer: "Create by ana bot"
 			      }, { quoted: msg })
 				  limitAdd(sender, limit)
 			    }).catch(() => reply(mess.error.api))
@@ -476,8 +475,43 @@ module.exports = async(conn, msg, m, setting, store, welcome) => {
 			      conn.sendMessage(from, { audio: { url: data.nowm }, mimetype: 'audio/mp4' }, { quoted: msg })
 			       limitAdd(sender, limit)
 				}).catch(() => reply(mess.error.api))
-		        break
-            case prefix+'play':
+				break
+				case prefix+'pinterest':
+			    if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+				if (args.length < 2) return reply(`Kirim perintah ${command} query atau ${command} query --jumlah\nContoh :\n${command} cecan atau ${command} cecan --10`)
+				reply(mess.wait)
+			    var jumlah;
+			    if (q.includes('--')) jumlah = q.split('--')[1]
+			    pinterest(q.replace('--'+jumlah, '')).then(async(data) => {
+				  if (q.includes('--')) {
+					if (data.result.length < jumlah) {
+					  jumlah = data.result.length
+					  reply(`Hanya ditemukan ${data.result.length}, foto segera dikirim`)
+					}
+					for (let i = 0; i < jumlah; i++) {
+					  conn.sendMessage(from, { image: { url: data.result[i] }})
+					}
+				    limitAdd(sender, limit)
+				  } else {
+					var but = [{buttonId: `/pinterest ${q}`, buttonText: { displayText: 'NEXT' }, type: 1 }]
+					conn.sendMessage(from, { caption: `Hasil pencarian dari ${q}`, image: { url: pickRandom(data.result) }, buttons: but, footer: 'Pencet tombol dibawah untuk foto selanjutnya' }, { quoted: msg })
+				    limitAdd(sender, limit)
+				  }
+				})
+				break
+				case prefix+'mediafire':
+					if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+			    if (args.length < 2) return reply(`Kirim perintah ${command} link`)
+			    if (!isUrl(args[1])) return reply(mess.error.Iv)
+			    if (!args[1].includes('mediafire')) return reply(mess.error.Iv)
+			    reply(mess.wait)
+					var data = await fetchJson(`https://docs-jojo.herokuapp.com/api/mediafire?url=${q}`)
+					conn.sendMessage(from, { document: { url: data.url }, fileName: `${data.filename}`, mimetype: 'zip' }, { quoted: msg })
+					limitAdd(sender, limit)
+					break
+            case prefix+'youtube':
+            case prefix+'yt':
+					case prefix+'play':
 			    if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 if (args.length < 2) return reply(`Kirim perintah ${command} query\nContoh : ${command} monokrom`)
                 reply(mess.wait)
@@ -721,6 +755,16 @@ module.exports = async(conn, msg, m, setting, store, welcome) => {
 				  }
 				})
 			    break
+case prefix+'attp': {
+const buff = await getBuffer(`https://api.xteam.xyz/attp?file&text=${encodeURIComponent(q)}`)
+conn.sendMessage(from, { sticker : buff}) 
+}
+break
+case prefix+'simi':
+  case prefix+'ana':
+  const cimcimi = await fetchJson(`https://api.simsimi.net/v2/?text=${q}&lc=id`)
+  conn.sendMessage(from, { text: cimcimi.success})
+  break
 			case prefix+'yts': case prefix+'ytsearch':
 			    if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
 			    if (args.length < 2) return reply(`Kirim perintah ${command} query`)
@@ -968,9 +1012,9 @@ module.exports = async(conn, msg, m, setting, store, welcome) => {
                 }
 				break
 			default:
-			if (!isGroup && isCmd) {
+			/*if (!isGroup && isCmd) {
 				reply(`Command belum tersedia, coba beberapa hari kedepan yaa! _^`)
-			}
+			}*/
 		}
 	} catch (err) {
 		console.log(color('[ERROR]', 'red'), err)
