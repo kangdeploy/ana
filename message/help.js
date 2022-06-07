@@ -47,6 +47,7 @@ exports.allmenu = (sender, prefix, pushname, isOwner, isPremium, balance, limit,
   *( ✏️ )  Converter/Tools*
   • ${prefix}sticker
   • ${prefix}attp <text>
+  • ${prefix}ssweb
 
   *( ⌛ )  Downloader*
   • ${prefix}play
@@ -103,5 +104,10 @@ exports.allmenu = (sender, prefix, pushname, isOwner, isPremium, balance, limit,
   • ${prefix}addprem
   • ${prefix}delprem
 
-`+'     \`\`\`Powered by Fardev\`\`\`'
+  *Thanks to*
+  -Allah swt
+  -Irfan
+  -Arasya rafi
+  -Saya
+`+'     \`\`\`Powered by Nodejs\`\`\`'
 }

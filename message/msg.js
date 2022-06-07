@@ -1,5 +1,5 @@
 /**
-  * Created by Irfan
+  * Created by fardev
   * Contact me on WhatsApp wa.me/6285791458996
   * Follow me on Instagram @irfann._x
   * If you want to buy an updated script that is not encrypted, please WhatsApp me
@@ -33,6 +33,8 @@ const yts = require("yt-search");
 const speed = require("performance-now");
 const request = require("request");
 const ms = require("parse-ms");
+const fetch = require('node-fetch')
+const { MessageType } = require('@adiwajshing/baileys')
 
 // Exif
 const Exif = require("../lib/exif")
@@ -489,7 +491,7 @@ module.exports = async(conn, msg, m, setting, store, welcome) => {
 			{ quickReplyButton: { displayText: `Audio`, id: `${prefix}tiktokaudio ${q}` } },
 				]
 				reply(mess.wait)
-				conn.sendMessage(from, { caption: `Succes Download Video Tiktok, Thanks For Using FAR-BOT!`, video: {url: data.nowm}, templateButtons: tidtod, footer: 'Farbot', mentions: [sender]} )
+				conn.sendMessage(from, { caption: `DONE!`, video: {url: data.nowm}, templateButtons: tidtod, footer: 'ANA BOT', mentions: [sender]} )
 			}).catch(() => reply(mess.error.api))
 			limitAdd(sender, limit)
 			    break
@@ -559,7 +561,7 @@ module.exports = async(conn, msg, m, setting, store, welcome) => {
 			      limitAdd(sender, limit)
 				}).catch(() => reply(mess.error.api))
 			    break
-			case prefix+'ytmp3': case prefix+'mp3':
+			/*case prefix+'ytmp3': case prefix+'mp3':
 			    if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
 			    if (args.length < 2) return reply(`Kirim perintah ${command} link`)
 			    if (!isUrl(args[1])) return reply(mess.error.Iv)
@@ -571,7 +573,19 @@ module.exports = async(conn, msg, m, setting, store, welcome) => {
 			      conn.sendMessage(from, { document: { url: data.medias[7].url }, fileName: `${data.title}.mp3`, mimetype: 'audio/mp3' }, { quoted: msg })
 			      limitAdd(sender, limit)
 				}).catch(() => reply(mess.error.api))
-			    break
+			    break*/
+			    case prefix+'ytmp3':
+				if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+			    if (args.length < 2) return reply(`Kirim perintah ${command} link`)
+			    if (!isUrl(args[1])) return reply(mess.error.Iv)
+			    if (!args[1].includes('youtu.be') && !args[1].includes('youtube.com')) return reply(mess.error.Iv)
+			    reply(mess.wait)
+				var data = await fetchJson(`https://docs-jojoapi.herokuapp.com/api/yutub/audio?url=${q}&apikey=${jojoapi}`)
+				var title = `*Judul :* ${data.result.title}\n*Link Download :* ${data.result.result}\n\n*Tunggu Sebentar File MP3 Akan Segera Di Kirim*`
+				conn.sendMessage(from, {caption: title, image: {url: data.result.thumb}}, {quoted: msg})
+				conn.sendMessage(from, { document: { url: data.result.result }, fileName: `${data.result.title}.mp3`, mimetype: 'audio/mp3' }, { quoted: msg })
+				limitAdd(sender, limit)
+				  break
 			case prefix+'getvideo': case prefix+'getvidio':
 			    if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
 			    if (!isQuotedImage) return reply(`Balas hasil pencarian dari ${prefix}ytsearch dengan teks ${command} <no urutan>`)
@@ -791,6 +805,15 @@ const buff = await getBuffer(`https://api.xteam.xyz/attp?file&text=${encodeURICo
 conn.sendMessage(from, { sticker : buff}) 
 }
 break
+case prefix+'ssweb':
+  if (!isUrl(args[1])) return reply(mess.error.Iv)
+  var seweb = chats.slice(7)
+  if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+  if (args.length < 2) return reply(`Kirim Perintah ${command} link Mu\nContoh ${command} https://github.com/Satria356`)
+  reply(mess.wait)
+  conn.sendMessage(from, { image: { url: `https://shot.screenshotapi.net/screenshot?url=${args[0]}&full_page=true&fresh=true&output=image&file_type=png&wait_for_event=load`}})
+  limitAdd(sender, limit)
+  break
 case prefix+'simi':
   case prefix+'ana':
   const cimcimi = await fetchJson(`https://api.simsimi.net/v2/?text=${q}&lc=id`)
